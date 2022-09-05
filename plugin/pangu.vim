@@ -108,8 +108,12 @@ function! PanGuSpacingCore(mode) range
     " 修复 markdown 链接所使用的标点。
     " 参考链接
     silent! execute firstline . ',' . lastline . 's/[' . bracket_left . '[]\([^' . bracket_right . '\]]\+\)[' . bracket_right . '\]][' . bracket_left . '[]\([^' . bracket_right . '\]]\+\)[' . bracket_right . '\]]/[\1][\2]/g'
+    " 参考链接-内嵌图片，[![]][]
+    silent! execute firstline . ',' . lastline . 's/![' . bracket_left . '[]\([^' . bracket_right . '\]]\+\)[' . bracket_right . '\]][' . bracket_left . '[]\([^' . bracket_right . '\]]\+\)[' . bracket_right . '\]]/![\1][\2]/g'
     " 内联链接
     silent! execute firstline . ',' . lastline . 's/[' . bracket_left . '[]\([^' . bracket_right . '\]]\+\)[' . bracket_right . '\]][（(]\([^' . bracket_right . ')]\+\)[）)]/[\1](\2)/g'
+    " 内联链接-内嵌图片，[![]]()
+    silent! execute firstline . ',' . lastline . 's/![' . bracket_left . '[]\([^' . bracket_right . '\]]\+\)[' . bracket_right . '\]][（(]\([^' . bracket_right . ')]\+\)[）)]/![\1](\2)/g'
     " WiKi 链接：
     " - [『中文条目』] -> [[中文条目]]
     " - [[en 条目』] -> [[en 条目]]
